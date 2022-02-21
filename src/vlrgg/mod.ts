@@ -3,12 +3,9 @@ import { NodeList } from "deno_dom/src/dom/node-list.ts";
 import { Event, Match } from "./models.ts";
 
 export const getEvent = async (
-  id: string,
-  seriesId = "all",
+  opts: { id: string; seriesId: string | undefined },
 ): Promise<Event> => {
-  const htmlContent = await fetch(
-    `https://www.vlr.gg/event/matches/${id}/?series_id=${seriesId}`,
-  );
+  const htmlContent = await fetch(eventUrl(opts));
   const dom = new DOMParser().parseFromString(
     await htmlContent.text(),
     "text/html",
@@ -43,6 +40,11 @@ export const getEvent = async (
     matches,
   };
 };
+
+const eventUrl = (opts: { id: string; seriesId: string | undefined }) =>
+  `https://www.vlr.gg/event/matches/${opts.id}/?series_id=${
+    opts.seriesId || "all"
+  }`;
 
 const toElements = (nodeList: NodeList) =>
   Array.from(nodeList)
