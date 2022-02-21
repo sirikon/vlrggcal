@@ -3,7 +3,7 @@ import { NodeList } from "deno_dom/src/dom/node-list.ts";
 import { Event, Match } from "./models.ts";
 
 export const getEvent = async (
-  id: number,
+  id: string,
   seriesId = "all",
 ): Promise<Event> => {
   const htmlContent = await fetch(
@@ -24,7 +24,7 @@ export const getEvent = async (
       const visitorTeamEl = teamsEl[1];
 
       return {
-        id: parseInt(matchEl.getAttribute("href")!.split("/")[1]),
+        id: matchEl.getAttribute("href")!.split("/")[1],
         teams: {
           local: {
             name: localTeamEl.querySelector("div.text-of")!.textContent.trim(),

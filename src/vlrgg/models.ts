@@ -4,7 +4,7 @@ export type Event = {
 };
 
 export type Match = {
-  id: number;
+  id: string;
   teams: {
     local: Team;
     visitor: Team;
